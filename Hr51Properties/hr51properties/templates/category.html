@@ -1,0 +1,23 @@
+{%extends 'basic.html' %}
+
+{%block title%}Category{%endblock%}
+
+
+{%block body%}
+{%block content%}
+
+
+<div class="w3-content" style="max-width:1600px">
+   <h2>{{categories.title}}</h2>
+   <img src="/media/{{categories.image}}" alt="Runway" style="max-height: 250px; " class="w3-padding-16">
+</div>
+<div>
+    {% for p in posts %}
+    <p style="font-size: 14px;"><a href="/post/{{p.url}}">View 👀  {{p.title}}</a></p>
+    {% empty %}
+    <p>No Property Avaliable</p>
+    {% endfor %}
+</div>
+
+{%endblock content%}
+{%endblock body%}

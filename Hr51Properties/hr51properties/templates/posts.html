@@ -1,0 +1,77 @@
+{%extends 'basic.html' %}
+
+{%block title%}Home{%endblock%}
+
+{%block body%}
+{%block content%}
+
+
+<div class="w3-content" style="max-width:1600px">
+
+
+    <div>
+
+        <img src="/media/{{post.image}}" alt="Runway" style="width:100%; max-height: 380px; " class="w3-padding-16">
+        <h2>{{post.title}}</h2>
+        <h1>{{post.post_date}}</h1>
+        <p>
+            {{post.content |truncatewords:60 | safe}}
+        </p>
+    </div>
+    <div>
+        {% for p in posts %}
+        <p>{{p.title}}</p>
+        {% endfor %}
+    </div>
+    <div class="w3-white w3-margin">
+        <div class="w3-container w3-padding w3-black">
+            <h4>Multi_Area Category</h4>
+        </div>
+        <ul class="w3-ul w3-hoverable w3-white">
+            {% for cat in categories %}
+            <li class="w3-padding-16">
+                <img src="/media/{{cat.image}}" alt="Image" class="w3-left w3-margin-right" style="width:50px">
+                <span class="w3-large">{{cat.title}}</span>
+                <p style="font-size: 14px;"><a href="/category/{{cat.url}}">View 👀</a></p>
+                <span>{{cat.description | truncatewords:30 | safe}}
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Grid -->
+    <div class="w3-row w3-padding w3-border">
+
+        <!-- About/Information menu -->
+        <div class="w3-col l4">
+            <!-- Posts -->
+
+            <hr>
+
+            <!-- Tags -->
+            <div class="w3-white w3-margin">
+                <div class="w3-container w3-padding w3-black">
+                    <h4>Tags</h4>
+                </div>
+                <div class="w3-container w3-white">
+                    <p>
+                        {%for p in posts %}
+                        <span class="w3-tag w3-light-grey w3-medium w3-margin-bottom">{{p.url}}</span>
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+            <hr>
+
+            <!-- END About/Intro Menu -->
+        </div>
+        <!-- END GRID -->
+    </div>
+    <!-- END w3-content -->
+</div>
+
+
+
+{%endblock content%}
+{%endblock body%}
