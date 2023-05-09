@@ -5,19 +5,84 @@
 
 {%block body%}
 {%block content%}
+<section>
 
+    <!--Fetched reults appear here-->
+    <div class="container-fluid px-0 mx-aut">
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-0 gx-5 align-items-end">
+                    <div class="col-lg-10">
+                        <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
+                            <div class="d-flex">
+                                <img src="/media/{{categories.image}}" alt="loading.." style="max-height: 80px; " class="w3-padding-16">
+                                <h1 class="mt-4 ml-3" style="text-transform: capitalize;">{{categories.title}} Property</h1>
+                            </div>
+                            <p>{{categories.description | safe}}</p>
+                        </div>
+                    </div>
+                </div>
 
-<div class="w3-content" style="max-width:1600px">
-   <h2>{{categories.title}}</h2>
-   <img src="/media/{{categories.image}}" alt="Runway" style="max-height: 250px; " class="w3-padding-16">
-</div>
-<div>
-    {% for p in posts %}
-    <p style="font-size: 14px;"><a href="/post/{{p.url}}">View 👀  {{p.title}}</a></p>
-    {% empty %}
-    <p>No Property Avaliable</p>
-    {% endfor %}
-</div>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane fade show p-0 active">
+                        <div class="row g-4">
+                            {% for p in posts %}
+                            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="property-item rounded overflow-hidden">
+                                    <div class="position-relative overflow-hidden">
+                                        <a href="/media/{{p.image}}">
+                                            <img class="img-fluid" src="/media/{{p.image}}" alt="" style="width:100%" />
+                                        </a>
+                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3"
+                                            style="text-transform: capitalize;">
+                                            {{p.get_status_display}}
+                                        </div>
+                                        <div
+                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            {{ p.get_type_display }}
+                                        </div>
+                                    </div>
+                                    <div class="p-4 pb-0">
+                                        <h5 class="text-primary mb-3">INR {{p.property_price}}</h5>
+                                        <p style="display: flex; flex-direction: row;">
+                                            <i class="fa fa-map-marker-alt text-primary me-2">
+                                            </i>
+                                            <a class="d-block h5 mb-0" style="text-transform: capitalize;"
+                                                href="/post/{{p.url}}">{{p.title}}</a>
+                                            {{p.content |truncatewords:20 |safe}}
+                                        </p>
+                                    </div>
+                                    <div class="d-flex border-top">
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-ruler-combined text-primary me-2"></i>
+                                            {{p.property_size}} Sqft</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-bed text-primary me-2"></i>{{p.get_rooms_display}}</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-bath text-primary me-2"></i>{{p.rooms}}</small>
+                                        <small class="flex-fill text-center py-2"><i
+                                                class="fa fa-rent text-primary me-2"></i>{{p.get_rooms_display}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div class="col-12 text-center">
+                                <a class="btn btn-danger py-3 px-5" href="/allpost">No Property Avaliable</a>
+                            </div>
+                            {% endfor %}
+                            <div class="col-12 text-center">
+                                <a class="btn btn-primary py-3 px-5" href="/allpost">Browse More Property</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--Fetched results ends here-->
+</section>
+
 
 {%endblock content%}
 {%endblock body%}
