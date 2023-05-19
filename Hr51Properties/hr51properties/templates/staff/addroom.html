@@ -91,12 +91,12 @@
     </style>
 {% endblock css %}
 {% block body %}
- <h1 class="text-center bg-warning my-0">Add Room</h1>
+ <h1 class="text-center bg-warning my-0">Add Property</h1>
     <!--Staff section -->
     <div class="container">
 
         <div class="row">
-            <div class="col-md-6 col-lg-6 col-xlg-6 col-sm-12 mx-auto">
+            <div class="col-md-12 col-lg-12 col-xlg-12 col-sm-12 mx-auto">
 
                 <form action="/staff/panel/add-room/add" method="POST">
                     {% csrf_token %}
@@ -105,9 +105,9 @@
                         <label for="email">Room Type:</label>
                         <select class="form-control" name="roomtype" id="roomtype">
                             
-                            <option value="1">Premium</option>
-                            <option value="2">Deluxe</option>
-                            <option value="3">Basic</option>
+                            <option value="1">Furnished</option>
+                            <option value="2">Semi-Furnished</option>
+                            <option value="3">Un-Furnished</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -132,15 +132,72 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="pwd">Location:</label>
-                        
+                        <label for="pwd">Location:</label>                
                         <select class="form-control" name="hotel" id="hotel">
                             {% for each_location,eachid in location%}
                             <option value={{eachid}}>{{each_location}}</option>
                             {% endfor %}
-                            
-                            
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Title:</label>
+                        <input type="text" class="form-control " id="title" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Property Type</label>
+                        <select class="form-control" name="proptype" id="proptype">  
+                            <option value="1">Available</option>
+                            <option value="2">Not Available</option>
+                            <option value="3">Builder</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Property BHK</label>
+                        <input type="text" class="form-control " id="bhk" name="bhk">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Property Code</label>
+                        <input type="number" class="form-control " id="code" name="code">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Year Build</label>
+                        <input type="number" class="form-control " id="build" name="build">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Address</label>
+                        <input type="text" class="form-control " id="address" name="address">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Ownership</label>
+                        <input type="text" class="form-control " id="ownership" name="ownership">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Configuration</label>
+                        <input type="text" class="form-control " id="Configuration" name="Configuration">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Content</label>
+                        <input type="text" class="form-control " id="content" name="content">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Flooring</label>
+                        <input type="text" class="form-control " id="flooring" name="flooring">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Parking</label>
+                        <input type="text" class="form-control " id="parking" name="parking">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Water Source</label>
+                        <input type="text" class="form-control " id="water" name="water">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Power Backup</label>
+                        <input type="text" class="form-control " id="powerbackup" name="powerbackup">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Url</label>
+                        <input type="text" class="form-control " id="url" name="url">
                     </div>
                     <button type="submit" class="btn btn-primary">Add Room</button>
                 </form>
@@ -155,3 +212,18 @@
 
 
 
+<!--
+        new_room.consider = request.POST['consider']
+        new_room.nearby = request.POST['nearby']
+        new_room.facing = request.POST['facing']
+        new_room.property_age = request.POST['age']
+        new_room.furnished_details = request.POST['furnished']
+        new_room.loan_available = request.POST['loan']
+        new_room.image = request.POST['image']
+        new_room.image1 = request.POST['image1']
+        new_room.image2 = request.POST['image2']
+        new_room.image3 = request.POST['image3']
+        new_room.image4 = request.POST['image4']
+        new_room.map = request.POST['map']
+
+-->

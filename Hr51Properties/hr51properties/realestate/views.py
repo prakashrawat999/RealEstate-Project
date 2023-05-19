@@ -1,6 +1,6 @@
 from django.shortcuts import render ,redirect
 from django.http import HttpResponse , HttpResponseRedirect
-from .models import Hotels,Rooms,Reservation, Contact, Category, Property
+from .models import Hotels,Rooms,Reservation, Contact, Feedback
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
@@ -8,28 +8,33 @@ from django.contrib.auth.decorators import login_required
 import datetime
 # Create your views here.
 def allpost(request):
-    posts = Property.objects.all()[:11]
-    categories = Category.objects.all()
+    posts = Rooms.objects.all()[:11]
+    categories = Hotels.objects.all()
     data = {
         'posts' : posts,
         'categories': categories
     }
     return render(request, "allpost.html", data)
 
-def post(request, url):
-    post = Property.objects.get(url=url)
-    categories = Category.objects.all()
-    print(post)
-    #cat = Category.objects.get(post=post)
-    #posts = Property.objects.filter(cat=cat) 
+def page401(request):
+    return render(request, "401.html")
 
-    # print(post)
-    return render(request, 'posts.html', {'post': post, 'categories' : categories})
+def page404(request):
+    return render(request, "404.html")
 
-def categorypage(request, url):
-    categories = Category.objects.get(url=url)
-    posts = Property.objects.filter(cat=categories)
-    return render(request, "category.html", {'categories': categories, 'posts': posts})
+def page500(request):
+    return render(request, "500.html")
+
+def privacypage(request):
+    return render(request, "privacy.html")
+
+def termspage(request):
+    return render(request, "terms.html")
+
+def propertydetails(request, url):
+    room = Rooms.objects.get(url=url)
+    return render(request, 'propertydetails.html', {'room': room})
+
 
 #homepage
 def homepage(request):
@@ -86,7 +91,7 @@ def propertypage(request):
                 
             room = Rooms.objects.all().filter(hotel=hotel,capacity__gte = int(request.POST['capacity'])).exclude(id__in=rr)
             if len(room) == 0:
-                messages.warning(request,"Sorry No Rooms Are Available on this time period")
+                messages.warning(request,"Sorry No Properties are Available on this time period")
             data = {'rooms':room,'all_location':all_location,'flag':True}
             response = render(request,'property.html',data)
         except Exception as e:
@@ -117,6 +122,22 @@ def contactpage(request):
             messages.success(request, "Successfully Sent 😄😄😄")
     # return render(request, 'contact.html')
     return HttpResponse(render(request,'contact.html'))
+
+
+#contact page
+def feedbackpage(request):
+    if request.method=='POST':
+        print("submitted feedback")
+        name   = request.POST['name'] 
+        message = request.POST['message']
+        if len(name)<4 or len(message)<10:
+            messages.error(request, "Invalid")
+        else:
+            feedback = Feedback(name=name, message=message)
+            feedback.save()
+            messages.success(request, "Successfully Sent 😄😄😄")
+    # return render(request, 'contact.html')
+    return HttpResponse(render(request,'feedback.html'))
 
 #user sign up
 def user_sign_up(request):
@@ -263,7 +284,7 @@ def edit_room(request):
         old_room.room_number=int(request.POST['roomnumber'])
 
         old_room.save()
-        messages.success(request,"Room Details Updated Successfully")
+        messages.success(request,"Property Details Updated Successfully")
         return redirect('staffpanel')
     else:
     
@@ -289,10 +310,36 @@ def add_new_room(request):
         new_room.room_type  = request.POST['roomtype']
         new_room.capacity   = int(request.POST['capacity'])
         new_room.size       = int(request.POST['size'])
-        new_room.capacity   = int(request.POST['capacity'])
         new_room.hotel      = hotel
         new_room.status     = request.POST['status']
         new_room.price      = request.POST['price']
+        new_room.title = request.POST['title']
+        new_room.prop_type = request.POST['proptype']
+        new_room.prop_sell = request.POST['sell']
+        new_room.property_bhk = request.POST['bhk']
+        new_room.propety_code = int(request.POST['code'])
+        new_room.yearbuild = int(request.POST['build'])
+        new_room.address = request.POST['address']
+        new_room.ownership = request.POST['ownership']
+        new_room.Configuration = request.POST['Configuration']
+        new_room.content = request.POST['content']
+        new_room.flooring = request.POST['flooring']
+        new_room.parking = request.POST['parking']
+        new_room.water_source = request.POST['water']
+        new_room.powerbackup = request.POST['powerbackup']
+        new_room.consider = request.POST['consider']
+        new_room.nearby = request.POST['nearby']
+        new_room.facing = request.POST['facing']
+        new_room.property_age = request.POST['age']
+        new_room.furnished_details = request.POST['furnished']
+        new_room.loan_available = request.POST['loan']
+        new_room.image = request.POST['image']
+        new_room.image1 = request.POST['image1']
+        new_room.image2 = request.POST['image2']
+        new_room.image3 = request.POST['image3']
+        new_room.image4 = request.POST['image4']
+        new_room.map = request.POST['map']
+        new_room.url = request.POST['url']
 
         new_room.save()
         messages.success(request,"New Room Added Successfully")

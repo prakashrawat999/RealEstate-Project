@@ -1,165 +1,232 @@
-{% extends 'basic.html' %}
-{% block title %}Edit Room
-{% endblock title %}
+{% block title %} Dashboard : Staff Panel {% endblock title %}
+
 {% block css %}
-<style>
-        .progress {
-            width: 150px;
-            height: 150px;
-            background: none;
-            position: relative;
-        }
-        
-        .progress::after {
-            content: "";
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 6px solid #eee;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        
-        .progress>span {
-            width: 50%;
-            height: 100%;
-            overflow: hidden;
-            position: absolute;
-            top: 0;
-            z-index: 1;
-        }
-        
-        .progress .progress-left {
-            left: 0;
-        }
-        
-        .progress .progress-bar {
-            width: 100%;
-            height: 100%;
-            background: none;
-            border-width: 6px;
-            border-style: solid;
-            position: absolute;
-            top: 0;
-        }
-        
-        .progress .progress-left .progress-bar {
-            left: 100%;
-            border-top-right-radius: 80px;
-            border-bottom-right-radius: 80px;
-            border-left: 0;
-            -webkit-transform-origin: center left;
-            transform-origin: center left;
-        }
-        
-        .progress .progress-right {
-            right: 0;
-        }
-        
-        .progress .progress-right .progress-bar {
-            left: -100%;
-            border-top-left-radius: 80px;
-            border-bottom-left-radius: 80px;
-            border-right: 0;
-            -webkit-transform-origin: center right;
-            transform-origin: center right;
-        }
-        
-        .progress .progress-value {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        /*
-*
-* ==========================================
-* FOR DEMO PURPOSE
-* ==========================================
-*
-*/
-        
-        body {
-            min-height: 100vh;
-        }
-        
-        .rounded-lg {
-            border-radius: 1rem;
-        }
-        
-        .text-gray {
-            color: #aaa;
-        }
-        
-        div.h4 {
-            line-height: 1rem;
-        }
-    </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+<link href="/static/css/staff.css" rel="stylesheet" />
 {% endblock css %}
+
 {% block body %}
-<h1 class="text-center bg-warning my-0">Edit Room</h1>
-    <!--Staff section -->
-    <div class="container">
 
-        <div class="row">
-            <div class="col-md-6 col-lg-6 col-xlg-6 col-sm-12 mx-auto">
-
-                <form action="/staff/panel/edit-room/edit" method="POST">
-                    {%csrf_token%}
-                    <div class="form-group">
-                        <label for="pwd">Room Number:</label>
-                        <input type="number" class="form-control" id="roomnumber" name="roomnumber" value="{{room.roomnumber}}" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Room Type:</label>
-                        <select class="form-control" name="roomtype" id="roomtype">
-                            
-                            
-                            
-                            <option  value=1>Premium</option>
-                            <option  value=2>Deluxe</option>
-                            <option  value=3>Basic</option>
-
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Capacity:</label>
-                        <input type="number" class="form-control " id="capacity" name="capacity" value="{{room.capacity}}">
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Price:</label>
-                        <input type="mumber" class="form-control " id="price" name="price" value="{{room.price}}">
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Size:</label>
-                        <input type="number" class="form-control " id="size" name="size" value="{{room.size}}">
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Status:</label>
-                        <select class="form-control" name="status" id="status">
-                            <option value="1">Available</option>
-                            <option value="2">Not Available</option>
-                            
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Location:</label>
-                        <input type="text" class="form-control " id="hotel" name="hotel" value="{{room.hotel.location}}" disabled>
-                    </div>
-                    <button type="submit" class="btn btn-danger">Save</button>
-                    <input type="hidden" name="roomid" value="{{room.id}}">
-                    <input type="hidden" name="roomtypevalue" id="roomtypevalue" value="{{room.room_type}}">
-                    <input type="hidden" name="roomstatus" id="roomstatus" value="{{room.status}}">
-                    <input type="hidden" class="form-control " id="hotel" name="hotel" value="{{room.hotel.id}}">
-                    <input type="hidden" class="form-control" id="roomnumber" name="roomnumber" value="{{room.roomnumber}}">
-                </form>
+<section class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="/">HR51 Properties</a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+                class="fas fa-bars"></i></button>
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
+                    aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i
+                        class="fas fa-search"></i></button>
             </div>
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                {% if user.is_authenticated %}
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#!">{{request.user}}</a></li>
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                </ul>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Core</div>
+                        <a class="nav-link" href="/staff/allbookings">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            All Appointments
+                        </a>
+                        <a class="nav-link" href="/staff/panel">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Dashboard
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Interface</div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
+                            aria-expanded="false" aria-controls="collapsePages">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            Pages
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
+                            data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                    data-bs-target="#pagesCollapsehome" aria-expanded="false"
+                                    aria-controls="pagesCollapseAuth">
+                                    Basic
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="pagesCollapsehome" aria-labelledby="headingOne"
+                                    data-bs-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href="/">Home</a>
+                                        <a class="nav-link" href="/contact">Contact</a>
+                                        <a class="nav-link" href="/about">About</a>
+                                        <a class="nav-link" href="/terms">Term & Condition</a>
+                                        <a class="nav-link" href="/privacy">Privacy Policy</a>
+                                    </nav>
+                                </div>
+                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                    data-bs-target="#pagesCollapseAuth" aria-expanded="false"
+                                    aria-controls="pagesCollapseAuth">
+                                    Authentication
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
+                                    data-bs-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href="/staff/login">Staff Login</a>
+                                        <a class="nav-link" href="/user/login">Login</a>
+                                        <a class="nav-link" href="/user/signup">Register</a>
+                                    </nav>
+                                </div>
+                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                    data-bs-target="#pagesCollapseError" aria-expanded="false"
+                                    aria-controls="pagesCollapseError">
+                                    Error
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne"
+                                    data-bs-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href="401.html">401 Page</a>
+                                        <a class="nav-link" href="404.html">404 Page</a>
+                                        <a class="nav-link" href="500.html">500 Page</a>
+                                    </nav>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logged in as:</div>
+                    Start Bootstrap
+                </div>
+            </nav>
+        </div>
+    
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item active">View Property</li>
+                    </ol>
+                </div>
+                <hr>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-10 col-lg-12 col-xlg-6 col-sm-12 p-5">
+                            <form action="/staff/panel/edit-room/edit" method="POST">
+                                {%csrf_token%}
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label for="pwd">Property Number</label>
+                                        <input type="number" class="form-control" id="roomnumber" name="roomnumber"
+                                            value="{{room.roomnumber}}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="pwd">Property Type</label>
+                                        <select class="form-control" name="roomtype" id="roomtype">
+                                            <option value=1>Fully Furnished</option>
+                                            <option value=2>Furnished</option>
+                                            <option value=3>Un Furnished</option>
+                
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="pwd">Capacity</label>
+                                        <input type="number" class="form-control " id="capacity" name="capacity"
+                                            value="{{room.capacity}}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-3">
+                                        <label for="pwd">Property Price</label>
+                                        <input type="mumber" class="form-control " id="price" name="price" value="{{room.price}}">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="pwd">Property Area</label>
+                                        <input type="number" class="form-control " id="size" name="size" value="{{room.size}}">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="pwd">Property Status</label>
+                                        <select class="form-control" name="status" id="status">
+                                            <option value="1">Available</option>
+                                            <option value="2">Not Available</option>
+                
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="pwd">Location</label>
+                                        <input type="text" class="form-control " id="hotel" name="hotel" value="{{room.hotel.location}}"
+                                            disabled>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-danger">Save</button>
+                                <input type="hidden" name="roomid" value="{{room.id}}">
+                                <input type="hidden" name="roomtypevalue" id="roomtypevalue" value="{{room.room_type}}">
+                                <input type="hidden" name="roomstatus" id="roomstatus" value="{{room.status}}">
+                                <input type="hidden" class="form-control " id="hotel" name="hotel" value="{{room.hotel.id}}">
+                                <input type="hidden" class="form-control" id="roomnumber" name="roomnumber" value="{{room.roomnumber}}">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; HR51 Properties</div>
+                        <div>
+                            <a href="/privacypolicy">Privacy Policy</a>
+                            &middot;
+                            <a href="/termsandcondition">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
+</section>
+<!--Staff section -->
 {% endblock body %}
-    {% block js %}
-    <script>
-    $(document).ready(function() {
+{% block js %}
+<!-- jquery for rooms stats  starts here-->
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
+<script src="/static/js/staff.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+    crossorigin="anonymous"></script>
+<script src="/static/js/datatables-simple-demo.js"></script>
+<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
 
         //for  room type
         var x = $("#roomtypevalue").val()
@@ -171,12 +238,6 @@
 
     });
 </script>
-    {% endblock js %}
-    
+{% endblock js %}
 
-
-
-
-
-
-   
+<!--Staff section -->

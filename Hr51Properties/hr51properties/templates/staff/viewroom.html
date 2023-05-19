@@ -1,40 +1,319 @@
- {% extends 'basic.html' %} {% block title %}View Room {% endblock title %} {% block body %}
-<h3 class="text-success"> Details</h3>
-<hr>
-<div class="container mx-0 ">
-    <p><b>Number :-</b> {{room.roomnumber}}</p>
-    <p><b>Type :-</b> {{room.get_room_type_display}}</p>
-    <p><b>Capacity :-</b> {{room.capacity}} person</p>
-    <p><b>Size :-</b> {{room.size}} ft</p>
-    <p><b>Status :-</b> {{room.get_status_display| capfirst}} </p>
-    <p><b>City :-</b> {{room.hotel.location| capfirst}} </p>
-    <p><b>State :-</b> {{room.hotel.state| capfirst}} </p>
-    <p><b>India :-</b> {{room.hotel.country| capfirst}} </p>
-</div>
+{% block title %} Dashboard : Staff Panel {% endblock title %}
 
+{% block css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+<link href="/static/css/staff.css" rel="stylesheet" />
+{% endblock css %}
 
-<hr> {% if reservations %}
-<h3 class="text-success">Bookings :-</h3>
-<table class="table">
-    <thead>
-        <th>Username</th>
-        <th>Person</th>
-        <th>check in</th>
-        <th>check out</th>
-    </thead>
-    {% for each_detail in reservations %}
-    <tr>
-        <td>{{each_detail.guest.username}}</td>
-        <td>{{each_detail.room.capacity}}</td>
-        <td>{{each_detail.check_in}}</td>
-        <td>{{each_detail.check_out}}</td>
-    </tr>
-    {% endfor %}
-    <tr>
-        <td><b>Total bookings = </b>{{reservations | length}}</td>
-    </tr>
+{% block body %}
 
-</table>
-{% else %}
-<p>No details found</p>
-{% endif %} {% endblock body %}
+<section class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="/">HR51 Properties</a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+                class="fas fa-bars"></i></button>
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
+                    aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i
+                        class="fas fa-search"></i></button>
+            </div>
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                {% if user.is_authenticated %}
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#!">{{request.user}}</a></li>
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                </ul>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Core</div>
+                        <a class="nav-link" href="/staff/allbookings">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            All Appointments
+                        </a>
+                        <a class="nav-link" href="/staff/panel">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Dashboard
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Interface</div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
+                            aria-expanded="false" aria-controls="collapsePages">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            Pages
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
+                            data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                    data-bs-target="#pagesCollapsehome" aria-expanded="false"
+                                    aria-controls="pagesCollapseAuth">
+                                    Basic
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="pagesCollapsehome" aria-labelledby="headingOne"
+                                    data-bs-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href="/">Home</a>
+                                        <a class="nav-link" href="/contact">Contact</a>
+                                        <a class="nav-link" href="/about">About</a>
+                                        <a class="nav-link" href="/terms">Term & Condition</a>
+                                        <a class="nav-link" href="/privacy">Privacy Policy</a>
+                                    </nav>
+                                </div>
+                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                    data-bs-target="#pagesCollapseAuth" aria-expanded="false"
+                                    aria-controls="pagesCollapseAuth">
+                                    Authentication
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
+                                    data-bs-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href="/staff/login">Staff Login</a>
+                                        <a class="nav-link" href="/user/login">Login</a>
+                                        <a class="nav-link" href="/user/signup">Register</a>
+                                    </nav>
+                                </div>
+                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                    data-bs-target="#pagesCollapseError" aria-expanded="false"
+                                    aria-controls="pagesCollapseError">
+                                    Error
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne"
+                                    data-bs-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href="401.html">401 Page</a>
+                                        <a class="nav-link" href="404.html">404 Page</a>
+                                        <a class="nav-link" href="500.html">500 Page</a>
+                                    </nav>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logged in as: {{request.user}}</div>
+                    HR51 Properties
+                </div>
+            </nav>
+        </div>
+        <!-- 
+        <p><b>City :-</b> {{room.hotel.location| capfirst}} </p>
+        <p><b>State :-</b> {{room.hotel.state| capfirst}} </p>
+        <p><b>India :-</b> {{room.hotel.country| capfirst}} </p>
+    </div>
+        -->
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item active">View Property</li>
+                    </ol>
+                    <div class="row">
+                        {%load app_tags%}
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-primary text-white mb-4">
+                                <div class="text-center m-2">
+                                    Property Code
+                                </div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <h3 class="card-body text-center">{{room.roomnumber}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-success text-white mb-1">
+                                <div class="text-center m-2">
+                                    Property Type
+                                </div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <h3 class="card-body text-center">{{room.get_room_type_display}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-danger text-white mb-1">
+                                <div class="text-center m-2">
+                                    Property Area
+                                </div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <h3 class="card-body text-center">{{room.size}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-secondary text-white mb-1">
+                                <div class="text-center m-2">
+                                    Property Size
+                                </div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <h3 class="card-body text-center">{{room.capacity}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-light text-black mb-1">
+                                <div class="text-center m-2">
+                                    Property Status
+                                </div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <h3 class="card-body text-center">{{room.get_status_display| capfirst}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-warning text-white mb-1">
+                                <div class="text-center m-2">
+                                    Property City
+                                </div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <h3 class="card-body text-center">{{room.hotel.location| capfirst}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-info text-white mb-1">
+                                <div class="text-center m-2">
+                                    Property State
+                                </div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <h3 class="card-body text-center">{{room.hotel.state| capfirst}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-dark text-white mb-1">
+                                <div class="text-center m-2">
+                                    Country
+                                </div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <h3 class="card-body text-center">{{room.hotel.country| capfirst}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    <div class="card mb-4 mt-3">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            Booking | {{reservations | length}} 
+                        </div>
+                        <div class="card-body">
+                            <table id="datatablesSimple">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Property Code</th>
+                                        <th>Location</th>
+                                        <th>Check in</th>
+                                        <th>Check out</th>
+                                        <th>Price</th>
+                                        <!--
+
+                                            <th colspan="2">Actions</th>
+                                        -->
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Property Code</th>
+                                        <th>Location</th>
+                                        <th>Check in</th>
+                                        <th>Check out</th>
+                                        <th>Price</th>
+                                        <!--
+
+                                            <th colspan="2">Actions</th>
+                                        -->
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    {% for each_booking in reservations %}
+                                    <tr>
+                                        <td>{{each_booking.guest.username}}</td>
+                                        <td>{{each_booking.room.roomnumber}}</td>
+                                        <td>{{each_booking.room.hotel.location}}</td>
+                                        <td>{{each_booking.check_in}}</td>
+                                        <td>{{each_booking.check_out}}</td>
+                                        <td>{{each_booking.room.price}}</td>
+                                        <!--
+
+                                            <td>{{each_booking.room.roomnumber}}</td>
+                                            <td>{{each_booking.room.hotel.location}}</td>
+                                            <td>{{each_booking.room.capacity}}</td>
+                                            <td>{{each_booking.check_in}}</td>
+                                            <td>{{each_booking.check_out}}</td>
+                                            <td>{{each_booking.room.price}}</td>
+                                        -->
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; HR51 Properties</div>
+                        <div>
+                            <a href="/privacy">Privacy Policy</a>
+                            &middot;
+                            <a href="/terms">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</section>
+<!--Staff section -->
+
+{% endblock body %}
+{% block js %}
+<!-- jquery for rooms stats  starts here-->
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
+<script src="/static/js/staff.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+    crossorigin="anonymous"></script>
+<script src="/static/js/datatables-simple-demo.js"></script>
+<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+<!--Jquery for room stats ends here-->
+{% endblock js %}

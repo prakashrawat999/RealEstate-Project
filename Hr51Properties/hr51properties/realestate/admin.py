@@ -1,18 +1,18 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Hotels,Rooms,Reservation, Contact, Category, Property
+from .models import Hotels,Rooms,Reservation, Contact
 
 # for configuration of Category admin
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('image_tag', 'title', 'add_date')
-    search_fields = ('title',)
+class HotelAdmin(admin.ModelAdmin):
+    list_display = ('image_tag', 'name', 'owner','add_date')
+    search_fields = ('name',)
 
 
-class PropertyAdmin(admin.ModelAdmin):
-    list_display = ('image_tag','title','cat','post_date',)
+class RoomAdmin(admin.ModelAdmin):
+    list_display = ('image_tag','title','prop_status','post_date',)
     search_fields = ('title',)
-    list_filter = ('cat',)
+    list_filter = ('room_type',)
     list_per_page = 50
 
     class Media:
@@ -24,9 +24,7 @@ class ContactAdmin(admin.ModelAdmin):
 
 
 # Register your models here.
-admin.site.register(Hotels)
-admin.site.register(Rooms)
+admin.site.register(Hotels, HotelAdmin)
+admin.site.register(Rooms, RoomAdmin)
 admin.site.register(Reservation)
 admin.site.register(Contact, ContactAdmin)
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Property, PropertyAdmin)

@@ -1,0 +1,236 @@
+{%extends 'basic.html' %}
+
+{%block title%}Home{%endblock%}
+{% block css %}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="/static/css/map.css" rel="stylesheet">
+{% endblock css %}
+
+{%block body%}
+{%block content%}
+
+
+<div class="w3-content" style="max-width:2000px">
+    <div id="main" class="m-3" style="margin-bottom: 10px;">
+        <!-- start:real estates detail -->
+        <div class="row" id="real-estates-detail">
+            <div class="col-lg-3 col-md-4 col-xs-12">
+                <div class="panel panel-default" id="panel-default">
+                    <div class="panel-heading">
+                        <header class="panel-title">
+                            <div class="text-center pt-3">
+                                <strong>Agent</strong> Author<strong>.</strong>
+                            </div>
+                        </header>
+                    </div>
+                    <hr>
+                    <div class="panel-body">
+                        <div class="text-center" id="author">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" style="max-height: 200px;">
+                            <h5>Karan Bhadana</h5>
+                            <small>yo iso di omongke makelar ngono sih. Tapi makelar nek payu ne akeh yo dadi sugih bro.
+                                Tenanan ra ngapusi.</small>
+                            <p class="sosmed-author mb-3">
+                                <a href="#"><i class="fa fa-facebook" title="Facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter" title="Twitter"></i></a>
+                                <a href="#"><i class="fa fa-google-plus" title="Google Plus"></i></a>
+                                <a href="#"><i class="fa fa-linkedin" title="Linkedin"></i></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end pt-2 px-2">
+                    <ul id="myTab" class="nav nav-pills">
+                        <li class=""><a style="height: 35px;" class="mr-2" href="#detail" data-toggle="tab">Details</a>
+                        </li>
+                        <li class="active"><a style="height: 35px;" class="mr-1" href="#photo" data-toggle="tab"><i
+                                    class="fa fa-image" title="Facebook"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-8 col-xs-12">
+                <div class="panel">
+                    <div class="panel-body">
+                        <div class="d-flex justify-content-end pt-2 px-2">
+                            <ul id="myTab" class="nav nav-pills">
+                                <li class=""><a style="height: 35px;" class="btn btn-outline-primary mr-1"
+                                        href="#detail" data-toggle="tab">Details</a></li>
+                                <li class="active"><a style="height: 35px;" class="btn btn-outline-warning mr-1"
+                                        href="#photo" data-toggle="tab">Revert</a></li>
+                            </ul>
+                        </div>
+                        <hr>
+                        <div id="myTabContent" class="tab-content">
+                            <div class="" id="photo">
+                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                            <a href="/media/{{room.image}}">
+                                                <img class="d-block w-100" src="/media/{{room.image}}" alt="First slide"
+                                                    style="height: 400px; object-fit: fill;">
+                                            </a>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <a href="/media/{{room.image1}}">
+                                                <img class="d-block w-100" src="/media/{{room.image1}}"
+                                                    alt="Second slide" style="height: 400px; object-fit: fill;">
+                                            </a>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <a href="/media/{{room.image2}}">
+                                                <img class="d-block w-100" src="/media/{{room.image2}}"
+                                                    alt="Third slide" style="height: 400px; object-fit: fill;">
+                                            </a>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <a href="/media/{{room.image3}}">
+
+                                                <img class="d-block w-100" src="/media/{{room.image3}}"
+                                                    alt="Third slide" style="height: 400px; object-fit: fill;">
+                                            </a>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <a href="/media/{{room.image4}}">
+
+                                                <img class="d-block w-100" src="/media/{{room.image4}}"
+                                                    alt="Third slide" style="height: 400px; object-fit: fill;">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+                                        data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button"
+                                        data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="detail"
+                                style="padding-right: 10px; padding-left: 10px; padding-bottom: 10px;">
+                                <div class="d-flex mt-3">
+                                    <h3 style="text-transform: capitalize;">{{room.title}}
+                                        <small style="font-size: 13px; color: gray;">{{room.get_status_display}}</small>
+                                    </h3>
+                                    <small class="ml-auto p-2">{{room.post_date}}</small>
+                                </div>
+                                <p style="text-align: justify;">{{room.content}}</p>
+                                <table class="table table-th-block">
+                                    <tbody>
+                                        <tr>
+                                            <td class="table-light">Property:</td>
+                                            <td>{{room.property_bhk}} BHK {{room.get_prop_type_display}}
+                                                {{room.get_prop_status_display}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-light">Configuration:</td>
+                                            <td>{{room.Configuration}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-light">Parking:</td>
+                                            <td>{{room.parking}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-light">Flooring:</td>
+                                            <td>{{room.flooring}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-light">Type:</td>
+                                            <td>{{room.get_room_type_display}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-light">Size:</td>
+                                            <td>{{room.size}} sq ft.</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-light">Location:</td>
+                                            <td>{{room.roomnumber}}, {{room.address}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-light">Year Built & Age:</td>
+                                            <td>{{room.yearbuild}}, {{room.property_age}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-light">Ownership:</td>
+                                            <td>{{room.get_ownership_display}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-light">Road Width:</td>
+                                            <td>{{room.widthroad}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-light">Source of Water:</td>
+                                            <td>{{room.water_source}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-light">Power Backup:</td>
+                                            <td>{{room.powerbackup}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-light">Price:</td>
+                                            <td>{{room.price}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-light">Furnishing Details:</td>
+                                            <td style="text-align: justify;">{{room.furnished_details}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-light">Near By Locality:</td>
+                                            <td style="text-align: justify;">{{room.nearby}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-light">Furnishing Details:</td>
+                                            <td>{{room.furnished_details}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-light">Other Details:</td>
+                                            <td><a href="#contact" data-toggle="tab">Contact for More Details</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="contact"
+                                style="padding-left: 30px; padding-right: 30px; padding-bottom: 10px">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <label>Full name</label>
+                                        <input type="text" class="form-control rounded" placeholder="Enter full name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Phone number</label>
+                                        <input type="number" class="form-control rounded" placeholder="(000)000000000">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email address</label>
+                                        <input type="email" class="form-control rounded" placeholder="Enter email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Message to agent</label>
+                                        <textarea class="form-control rounded" style="height: 100px;"></textarea>
+                                        <p class="help-block">Please be polite and professional</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary" data-original-title=""
+                                            title="">Send message</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="embed-responsive embed-responsive-100x400px">
+        <iframe src="{{room.map}}" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </div>
+
+</div>
+
+{%endblock content%}
+{%endblock body%}
