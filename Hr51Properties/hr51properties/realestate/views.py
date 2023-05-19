@@ -56,7 +56,7 @@ def homepage(request):
                 
             room = Rooms.objects.all().filter(hotel=hotel,capacity__gte = int(request.POST['capacity'])).exclude(id__in=rr)
             if len(room) == 0:
-                messages.warning(request,"Sorry No Rooms Are Available on this time period")
+                messages.warning(request,"Sorry No Properties are Available on this time period")
             data = {'rooms':room,'all_location':all_location,'flag':True}
             response = render(request,'index.html',data)
         except Exception as e:
@@ -81,13 +81,7 @@ def propertypage(request):
             rr = []
             
             #for finding the reserved rooms on this time period for excluding from the query set
-            for each_reservation in Reservation.objects.all():
-                if str(each_reservation.check_in) < str(request.POST['cin']) and str(each_reservation.check_out) < str(request.POST['cout']):
-                    pass
-                elif str(each_reservation.check_in) > str(request.POST['cin']) and str(each_reservation.check_out) > str(request.POST['cout']):
-                    pass
-                else:
-                    rr.append(each_reservation.room.id)
+
                 
             room = Rooms.objects.all().filter(hotel=hotel,capacity__gte = int(request.POST['capacity'])).exclude(id__in=rr)
             if len(room) == 0:
@@ -119,7 +113,7 @@ def contactpage(request):
         else:
             contact = Contact(name=name, email=email, phoneno=phoneno, content=content)
             contact.save()
-            messages.success(request, "Successfully Sent 😄😄😄")
+            messages.success(request, "Successfully Sent")
     # return render(request, 'contact.html')
     return HttpResponse(render(request,'contact.html'))
 
@@ -127,7 +121,6 @@ def contactpage(request):
 #contact page
 def feedbackpage(request):
     if request.method=='POST':
-        print("submitted feedback")
         name   = request.POST['name'] 
         message = request.POST['message']
         if len(name)<4 or len(message)<10:
@@ -135,7 +128,7 @@ def feedbackpage(request):
         else:
             feedback = Feedback(name=name, message=message)
             feedback.save()
-            messages.success(request, "Successfully Sent 😄😄😄")
+            messages.success(request, "Successfully Sent")
     # return render(request, 'contact.html')
     return HttpResponse(render(request,'feedback.html'))
 
@@ -363,12 +356,12 @@ def book_room(request):
         room = Rooms.objects.all().get(id=room_id)
         #for finding the reserved rooms on this time period for excluding from the query set
         for each_reservation in Reservation.objects.all().filter(room = room):
-            if str(each_reservation.check_in) < str(request.POST['check_in']) and str(each_reservation.check_out) < str(request.POST['check_out']):
+            if str(each_reservation.check_out) < str(request.POST['check_out']):
                 pass
-            elif str(each_reservation.check_in) > str(request.POST['check_in']) and str(each_reservation.check_out) > str(request.POST['check_out']):
+            elif str(each_reservation.check_out) > str(request.POST['check_out']):
                 pass
             else:
-                messages.warning(request,"Sorry This Room is unavailable for Booking")
+                messages.warning(request,"Sorry This Property is unavailable for Booking")
                 return redirect("homepage")
             
         current_user = request.user
@@ -384,12 +377,12 @@ def book_room(request):
         reservation.guest = user_object
         reservation.room = room_object
         person = total_person
-        reservation.check_in = request.POST['check_in']
+        #reservation.check_in = request.POST['check_in']
         reservation.check_out = request.POST['check_out']
 
         reservation.save()
 
-        messages.success(request,"Congratulations! Booking Successfull")
+        messages.success(request,"Booking Successfull")
 
         return redirect("homepage")
     else:

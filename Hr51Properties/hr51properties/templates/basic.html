@@ -68,7 +68,7 @@
                         <img class="img-fluid" src="/static/img/icon-deal.png" alt="Icon"
                             style="width: 30px; height: 30px;">
                     </div>
-                    <h2 class="m-0 text-primary">Hr51</h2>
+                    <h2 class="m-0 text-primary">HR51</h2>
                 </a>
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
@@ -77,9 +77,8 @@
                     <div class="navbar-nav ms-auto">
                         <a href="/" class="nav-item nav-link active">Home</a>
                         <a href="/property" class="nav-item nav-link">Property</a>
-                        <a href="/allpost" class="nav-item nav-link">All Property</a>
-                        <a href="/about" class="nav-item nav-link">About</a>
                         <a href="/contact" class="nav-item nav-link">Contact</a>
+                        <a href="/about" class="nav-item nav-link">About</a>
                         {% if user.is_staff %}
 
                         <div class="nav-item dropdown">
@@ -136,16 +135,12 @@
                     </div>
 
                     {% else %}
-
-                    <a href="/user" class="nav-link">
-                        <button class="btn btn-primary animated fadeIn px-3" data-toggle="modal"
-                            data-target="#forlogin">
-                            Login
-                        </button></a>
-                    <a href="/staff" class="nav-link">
-                        <button class="btn btn-primary  animated fadeIn">
-                            Staff Login
-                        </button></a>
+                    <div class="navbar-nav">
+                        <a href="/user" class="nav-item nav-link">Login</a>
+                    </div>
+                    <div class="navbar-nav">
+                        <a href="/staff" class="nav-item nav-link">Staff Login</a>
+                    </div>
                     {% endif %}
 
                 </div>
@@ -189,9 +184,9 @@
                         <h5 class="text-white mb-4">Quick Links</h5>
                         <a class="btn btn-link text-white-50" href="/about">About Us</a>
                         <a class="btn btn-link text-white-50" href="/contact">Contact Us</a>
+                        <a class="btn btn-link text-white-50" href="/allpost">Properties</a>
                         <a class="btn btn-link text-white-50" href="/services">Our Services</a>
-                        <a class="btn btn-link text-white-50" href="/privacy_policy">Privacy Policy</a>
-                        <a class="btn btn-link text-white-50" href="/allpost">Property</a>
+                        <a class="btn btn-link text-white-50" href="/privacy">Privacy Policy</a>
                         <a class="btn btn-link text-white-50" href="/terms">Terms & Condition</a>
                     </div>
                     <div class="col-lg-3 col-md-6">

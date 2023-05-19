@@ -1,51 +1,239 @@
-{% extends 'basic.html' %} {% block title %}Book Property {% endblock title %} {% block body %}
-<div class="container">
+{% extends 'basic.html' %}
+{% block title %}Book Property {% endblock title %}
+{% block css %}
 
-    <div class="row">
-        <div class="col-md-6 col-lg-6 col-xlg-6 col-sm-12 mx-auto my-4 ">
+<style>
 
-            <form action="/user/book-room/book" method="POST">
-                {%csrf_token%}
-                {%load app_tags%}
-                <div class="form-group">
-                    <label for="username">State</label>
-                    <input type="text" class="form-control " id="hotel" name="hotel" disabled value={{room.hotel.name}}>
-                </div>
-                <div class="form-group">
-                    <label for="username">Location</label>
-                    <input type="text" class="form-control " id="location" name="location" disabled value={{room.hotel.location}}>
-                </div>
-                <div class="form-group">
-                    <label for="person">Username</label>
-                    <input type="text" class="form-control " id="username" name="username" required="true" value={{request.user}}>
-                </div>
-                <div class="form-group">
-                    <label for="person">Capacity</label>
-                    <input type="number" class="form-control " id="person" name="person" min="1" max={{room.capacity}} required="true" value={{room.capacity}}>
-                </div>
-                <div class="form-group">
-                    <label for="password2">Date</label>
-                    <input type="date" class="form-control " id="cin" min={%todays_date%} max={% max_date %} placeholder="check in " name="check_in" required="True">
-                </div>
-                <div class="form-group">
-                    <label for="password2">2nd Date</label>
-                    <input type="date" class="form-control " id="cout" min={%tommorow%} max={% max_date%} placeholder="check out " name="check_out" required="True">
-                </div>
-                <div class="form-group">
-                    <label for="username">Property Type</label>
-                    <input type="text" class="form-control " id="roomtype" name="roomtype" disabled value={{room.get_room_type_display}}>
-                </div>
-                <div class="form-group">
-                    <label for="password2">Price</label>
-                    <input type="number" class="form-control " id="price" placeholder="price " name="price" disabled value={{room.price}}>
-                </div>
+    .section {
+        position: relative;
+        height: 100vh;
+}
 
+.section .section-center {
+position: absolute;
+top: 50%;
+left: 0;
+right: 0;
+-webkit-transform: translateY(-50%);
+transform: translateY(-50%);
+}
 
-                <button type="submit" class="btn btn-primary">Book Now</button>
-                <input type="hidden" name="room_id" value={{room.id}}>
+#booking {
+font-family: 'Montserrat', sans-serif;
+background-image: url('https://i.imgur.com/ZaRYfYW.jpg');
+background-size: cover;
+background-position: center;
+}
 
-            </form>
+#booking::before {
+content: '';
+position: absolute;
+left: 0;
+right: 0;
+bottom: 0;
+top: 0;
+background: rgb(0,185,142,0.7);
+}
+
+.booking-form {
+background-color: #fff;
+padding: 50px 20px;
+-webkit-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.3);
+box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.3);
+border-radius: 4px;
+}
+
+.booking-form .form-group {
+position: relative;
+}
+
+.booking-form .form-control {
+background-color: #ebecee;
+border-radius: 4px;
+border: none;
+-webkit-box-shadow: none;
+box-shadow: none;
+color: #3e485c;
+font-size: 14px;
+}
+
+.booking-form .form-control::-webkit-input-placeholder {
+color: rgba(62, 72, 92, 0.3);
+}
+
+.booking-form .form-control:-ms-input-placeholder {
+color: rgba(62, 72, 92, 0.3);
+}
+
+.booking-form .form-control::placeholder {
+color: rgba(62, 72, 92, 0.3);
+}
+
+.booking-form input[type="date"].form-control:invalid {
+color: rgba(62, 72, 92, 0.3);
+}
+
+.booking-form select.form-control {
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+}
+
+.booking-form select.form-control+.select-arrow {
+    position: absolute;
+    right: 0px;
+bottom: 4px;
+width: 32px;
+line-height: 32px;
+height: 32px;
+text-align: center;
+pointer-events: none;
+color: rgba(62, 72, 92, 0.3);
+font-size: 14px;
+}
+
+.booking-form select.form-control+.select-arrow:after {
+content: '\279C';
+display: block;
+-webkit-transform: rotate(90deg);
+transform: rotate(90deg);
+}
+
+.booking-form .form-label {
+display: inline-block;
+color: #3e485c;
+font-weight: 700;
+margin-bottom: 6px;
+margin-left: 7px;
+}
+
+.booking-form .submit-btn {
+display: inline-block;
+color: #fff;
+background-color: #0b162a;
+font-weight: 700;
+padding: 14px 30px;
+border-radius: 4px;
+border: none;
+-webkit-transition: 0.2s all;
+transition: 0.2s all;
+}
+
+.booking-form .submit-btn:hover,
+.booking-form .submit-btn:focus {
+    opacity: 0.9;
+}
+
+.booking-cta {
+margin-top: 80px;
+margin-bottom: 30px;
+}
+
+.booking-cta h1 {
+font-size: 52px;
+text-transform: uppercase;
+color: #fff;
+font-weight: 700;
+}
+
+.booking-cta p {
+font-size: 16px;
+color: rgba(255, 255, 255, 0.8);
+}
+</style>
+{% endblock css %}
+{% block body %}
+<div id="booking" class="section">
+    <div class="section-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-md-push-5">
+                    <div class="booking-cta">
+                        <h1>Make your reservation</h1>
+                        <p> We Provide You Your Dream Home.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-md-pull-7">
+                    <div class="booking-form">
+                        <form action="/user/book-room/book" method="POST">
+                            {%csrf_token%}
+                            {%load app_tags%}
+                            <div class="row">
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <span class="form-label">State</span>
+                                        <input type="text" class="form-control " id="hotel" name="hotel" disabled
+                                            value={{room.hotel.name}}>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+
+                                    <div class="form-group">
+                                        <span class="form-label">Username</span>
+                                        <input type="text" class="form-control " id="username" name="username"
+                                            required="true" value={{request.user}}>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <span class="form-label">Capacity</span>
+                                        <input type="number" class="form-control " id="person" name="person" min="1"
+                                            max={{room.capacity}} required="true" value={{room.capacity}}>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+
+                                    <div class="form-group">
+                                        <span class="form-label">State</span>
+                                        <input type="text" class="form-control " id="location" name="location" disabled
+                                            value={{room.hotel.location}}>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <span class="form-label">Check Out</span>
+                                        <input type="date" class="form-control " id="cout" min={%tommorow%} max={%
+                                            max_date%} placeholder="check out " name="check_out" required="True">
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <span class="form-label">Rooms</span>
+                                        <input type="text" class="form-control " id="roomtype" name="roomtype" disabled
+                                            value={{room.get_room_type_display}}>
+                                        <span class="select-arrow"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <span class="form-label">Price</span>
+                                        <input type="number" class="form-control " id="price" placeholder="price "
+                                            name="price" disabled value={{room.price}}>
+                                        <span class="select-arrow"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                                <button type="submit" class="btn btn-primary">Book Now</button>
+                                <input type="hidden" name="room_id" value={{room.id}}>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
+</div>
 </div>
 {% endblock body %}

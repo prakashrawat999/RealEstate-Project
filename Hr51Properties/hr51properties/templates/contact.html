@@ -12,21 +12,23 @@ Contact Us
             <div class="row single-form g-0">
                 <div class="col-sm-12 col-lg-6">
                     <div class="left bg-primary">
-                        <h4><span>Contact Us for</span> <br>
+                        <h4>
                             <span>
                                 Our mailing address: 
+                                <br>
+                                Plot 211, Sector-31, Omaxe 
+                                Faridabad – 122001
+                                Haryana, India
+                                <br>
+                                <br>
                             </span>
-                            <br>
-                            Plot 211, Sector-31, Omaxe 
-                            Faridabad – 122001
-                            Haryana, India<br>
                             
                             <span>
                                 In case of any queries:
-                            </span>
-                            <br>
-                            +91-7210240140
-                            support@hr51properties.com
+                                <br>
+                                +91-7210240140
+                                support@hr51properties.com
+                            </span> 
                         </h4>
                     </div>
                 </div>
@@ -38,11 +40,11 @@ Contact Us
             {% csrf_token %}
                           <div class="mb-2">
                             <label for="exampleInputEmail1" class="form-label">Your Name</label>
-                            <input type="text" class="form-control" aria-describedby="emailHelp" id="name" name="name">
+                            <input type="text" class="form-control" aria-describedby="emailHelp" id="name" name="name" value="{{request.user}}">
                           </div>
                           <div class="mb-2">
                             <label for="exampleInputEmail1" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" aria-describedby="emailHelp" id="email" name="email">
+                            <input type="email" class="form-control" aria-describedby="emailHelp" id="email" name="email" value="{{request.user.email}}">
                           </div>
                           <div class="mb-2">
                             <label for="exampleInputEmail1" class="form-label">Contact Number</label>
@@ -52,7 +54,7 @@ Contact Us
                             <label for="exampleInputPassword1" class="form-label">Message</label>
                               <textarea type="text" class="form-control" id="content" name="content"></textarea>
                           </div>
-                          <button type="submit" class="btn btn-primary">Submit</button>
+                              <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </div>
                 </div>

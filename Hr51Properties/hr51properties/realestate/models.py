@@ -13,7 +13,7 @@ class Hotels(models.Model):
     country = models.CharField(max_length=50,default="India")
     url = models.CharField(max_length=100, null=True)
     owner_image = models.ImageField(upload_to='user/', null=True)
-    add_date = models.DateTimeField(auto_now_add=True, null=True)
+    add_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def image_tag(self):
         return format_html(
@@ -113,7 +113,7 @@ class Rooms(models.Model):
     image4 = models.ImageField(upload_to='post/', null=True)
     url = models.CharField(max_length=100, null=True)
     map = models.CharField(max_length=450, null=True)
-    post_date = models.DateTimeField(auto_now_add=True, null=True)
+    post_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
 
     def image_tag(self):
@@ -125,8 +125,8 @@ class Rooms(models.Model):
 
 class Reservation(models.Model):
 
-    check_in = models.DateField(auto_now =False)
-    check_out = models.DateField()
+    check_in = models.DateField(auto_now =False, null=True, blank=True)
+    check_out = models.DateField(null=True, blank=True)
     room = models.ForeignKey(Rooms, on_delete = models.CASCADE)
     guest = models.ForeignKey(User, on_delete= models.CASCADE)
     

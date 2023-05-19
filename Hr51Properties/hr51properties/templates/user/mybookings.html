@@ -1,28 +1,33 @@
-{% extends 'basic.html' %} {% block title %}Dashboard {% endblock title %} {% block body %}
+{% extends 'basic.html' %}
+{% block title %}Dashboard{% endblock title %}
+{% block body %}
 {% load app_tags %}
-<h3 class="text-center  text-success">My Bookings </h3>
-<table class="table">
-    <thead>
-        <th>User</th>
-        <th>Room</th>
-        <th>Location</th>
-        <th>Person</th>
-        <th>Check in</th>
-        <th>Check out</th>
-        <th>Price</th>
-    </thead>
-    {% for each_booking in bookings %}
-    <tr>
-        <td>{{each_booking.guest.username}}</td>
-        <td>{{each_booking.room.roomnumber}}</td>
-        <td>{{each_booking.room.hotel.location}}</td>
-        <td>{{each_booking.room.capacity}}</td>
-        <td>{{each_booking.check_in}}</td>
-        <td>{{each_booking.check_out}}</td>
-        <td>{{each_booking.room.price}}</td>
-    </tr>
-    {% endfor %}
+<div class="table-responsive">
+    <div class="m-5">
+        <table class="table">
+            <thead>
+                <th>Name</th>
+                <th>Property Code & Name</th>
+                <th>Location</th>
+                <th>Date</th>
+                <th>Price</th>
+                <th>Property Agent</th>
+                <th>More Details</th>
+            </thead>
+            {% for each_booking in bookings %}
+            <tr>
+                <td style="text-transform: capitalize;">{{each_booking.guest.username}}</td>
+                <td>{{each_booking.room.roomnumber}} | {{each_booking.room.title}}</td>
+                <td style="text-transform: capitalize;">{{each_booking.room.hotel.location}}</td>
+                <td>{{each_booking.check_out}}</td>
+                <td>{{each_booking.room.price}}</td>
+                <td style="text-transform: capitalize;">{{each_booking.room.hotel.owner}}</td>
+                <td style="text-transform: capitalize;"><a href="/propertydetails/{{each_booking.room.url}}">Know
+                        More</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
 
-
-</table>
 {% endblock body %}
