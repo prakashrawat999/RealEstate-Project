@@ -163,9 +163,9 @@ color: rgba(255, 255, 255, 0.8);
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <span class="form-label">State</span>
+                                        <span class="form-label">Property Name</span>
                                         <input type="text" class="form-control " id="hotel" name="hotel" disabled
-                                            value={{room.hotel.name}}>
+                                            value={{room.hotel.name}} style="text-transform: capitalize;">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -173,16 +173,16 @@ color: rgba(255, 255, 255, 0.8);
                                     <div class="form-group">
                                         <span class="form-label">Username</span>
                                         <input type="text" class="form-control " id="username" name="username"
-                                            required="true" value={{request.user}}>
+                                            required="true" value={{request.user}} disabled style="text-transform: capitalize;">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <span class="form-label">Capacity</span>
+                                        <span class="form-label">Property Code</span>
                                         <input type="number" class="form-control " id="person" name="person" min="1"
-                                            max={{room.capacity}} required="true" value={{room.capacity}}>
+                                            max={{room.capacity}} required="true" value={{room.capacity}} disabled>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -197,7 +197,7 @@ color: rgba(255, 255, 255, 0.8);
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <span class="form-label">Check Out</span>
+                                        <span class="form-label">Date</span>
                                         <input type="date" class="form-control " id="cout" min={%tommorow%} max={%
                                             max_date%} placeholder="check out " name="check_out" required="True">
                                     </div>
@@ -207,9 +207,9 @@ color: rgba(255, 255, 255, 0.8);
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <span class="form-label">Rooms</span>
+                                        <span class="form-label">Type</span>
                                         <input type="text" class="form-control " id="roomtype" name="roomtype" disabled
-                                            value={{room.get_room_type_display}}>
+                                            value={{room.get_room_type_display}} style="text-transform: capitalize;">
                                         <span class="select-arrow"></span>
                                     </div>
                                 </div>
@@ -218,7 +218,7 @@ color: rgba(255, 255, 255, 0.8);
                                     <div class="form-group">
                                         <span class="form-label">Price</span>
                                         <input type="number" class="form-control " id="price" placeholder="price "
-                                            name="price" disabled value={{room.price}}>
+                                            name="price" disabled value={{room.price}} disabled>
                                         <span class="select-arrow"></span>
                                     </div>
                                 </div>
