@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
 from django.utils.html import format_html
 # Create your models here.
 
@@ -113,7 +114,9 @@ class Rooms(models.Model):
     image4 = models.ImageField(upload_to='post/', null=True)
     url = models.CharField(max_length=100, null=True)
     map = models.CharField(max_length=450, null=True)
+    is_published = models.BooleanField(default=True, null=True)
     post_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    list_date = models.DateTimeField(default=datetime.now, blank=True)
 
 
     def image_tag(self):

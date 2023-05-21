@@ -1,11 +1,13 @@
 {% extends 'basic.html' %}
-{% block title %}Properties
+{% block title %}
+Properties
 {% endblock title %}
+
 {% block body %}
 <section>
     <!-- Search Start -->
     <div class="container-fluid mb-5 wow fadeIn bg-primary" data-wow-delay="0.1s"
-        style="padding: 35px; background-image: url('');">
+        style="padding: 35px; background-image: url('https://i.imgur.com/ZaRYfYW.jpg'); font-family: 'Montserrat', sans-serif; object-fit: cover;">
         <form action="" method="POST">
             {% csrf_token %}
             <div class="container">
@@ -26,8 +28,8 @@
 
                             {%load app_tags%}
                             <div class="col-lg-2">
-                                <input class="form-control mr-sm-2" type="number" placeholder="Area" name="capacity" id="capacity"
-                                    aria-label="Search" required="True">
+                                <input class="form-control mr-sm-2" type="number" placeholder="Area" name="capacity"
+                                    id="capacity" aria-label="Search" required="True">
                             </div>
                         </div>
                     </div>
