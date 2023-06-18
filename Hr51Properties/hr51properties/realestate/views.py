@@ -80,12 +80,12 @@ def homepage(request):
             response = render(request, 'index.html', {
                               'all_location': all_location})
     else:
-        room = PropertyView.objects.all()
+        reveiw = Feedback.objects.all()
         data = {
             'all_location': all_location,
             'posts': posts,
             'categories': categories,
-            'own': room
+            'own': reveiw
             }
         response = render(request, 'index.html', data)
     return HttpResponse(response)
@@ -159,9 +159,9 @@ def contactpage(request):
 def feedbackpage(request):
     if request.method == 'POST':
         name = request.POST['name']
-        message = request.POST['message']
+        message = request.POST['content']
         if len(name) < 4 or len(message) < 10:
-            messages.error(request, "Invalid")
+            messages.error(request, "Invalid Form Data")
         else:
             feedback = Feedback(name=name, message=message)
             feedback.save()

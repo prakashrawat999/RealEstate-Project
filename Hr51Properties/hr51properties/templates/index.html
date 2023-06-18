@@ -10,7 +10,8 @@
             <div class="col-md-6 p-5 mt-lg-5">
                 <h1 class="display-5 animated fadeIn mb-4">Find A <span class="text-primary">Perfect Home</span> To Live
                     With Your Family</h1>
-                <p class="animated fadeIn mb-4 pb-2">Know thyself. Understand the type of home that suits your personality</p>
+                <p class="animated fadeIn mb-4 pb-2">Know thyself. Understand the type of home that suits your
+                    personality</p>
                 <a href="/property" class="btn btn-primary py-3 px-5 me-3 animated fadeIn">Explore</a>
             </div>
             <div class="col-md-6 animated fadeIn">
@@ -46,9 +47,10 @@
                 {% for cat in categories %}
                 <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
                     <a class="cat-item d-block bg-light text-center rounded p-3" href="http://127.0.0.1:8000/property/">
-                        <div class="rounded p-4">
+                        <div class="rounded p-3">
                             <div class="icon mb-3">
-                                <img class="img-fluid" src="/media/{{cat.area_image}}" alt="Icon" style="border-radius: 25%; max-height: 100px; width: 200px;">
+                                <img class="img-fluid" src="/media/{{cat.area_image}}" alt="Icon"
+                                    style="border-radius: 20%; max-height: 100px; width: 200px;">
                             </div>
                             <h6 style="text-decoration: none; ">{{cat.location}}</h6>
                             <span style="text-decoration: none;">{{cat.name}}</span>
@@ -76,8 +78,10 @@
                             <div class="mb-4">
                                 <h1 class="mb-3">Contact With Our Certified Agent</h1>
                             </div>
-                                <a href="/contact" class="btn btn-primary py-3 px-4 me-2 mb-1"><i class="fa fa-phone-alt me-2"></i>Contact Us</a>
-                                <a href="/user/book-room?roomid=1" class="btn btn-dark py-3 px-4 mb-1"><i class="fa fa-calendar-alt me-2"></i>Get Appoinment</a>
+                            <a href="/contact" class="btn btn-primary py-3 px-4 me-2 mb-1"><i
+                                    class="fa fa-phone-alt me-2"></i>Contact Us</a>
+                            <a href="/user/book-room?roomid=1" class="btn btn-dark py-3 px-4 mb-1"><i
+                                    class="fa fa-calendar-alt me-2"></i>Get Appoinment</a>
                         </div>
                     </div>
                 </div>
@@ -87,12 +91,13 @@
     <!-- Call to Action End -->
 </section>
 
-  <!-- Team Start -->
-  <div class="container-xxl py-5">
+<!-- Team Start -->
+<div class="container-xxl py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <h1 class="mb-3">Realtor Agents</h1>
-            <p>licensed real estate agent or broker (or other real estate professional) who is a member of the National Association of Realtors (NAR).</p>
+            <p>licensed real estate agent or broker (or other real estate professional) who is a member of the National
+                Association of Realtors (NAR).</p>
         </div>
         <div class="row g-4">
             {% for cat in categories %}
@@ -129,39 +134,21 @@
             <p></p>
         </div>
         <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+            {% for rev in own %}
             <div class="testimonial-item bg-light rounded p-3">
                 <div class="bg-white border rounded p-4">
-                    <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
+                    <p>{{rev.message}}</p>
                     <div class="d-flex align-items-center">
-                        <img class="img-fluid flex-shrink-0 rounded" src="/static/img/testimonial-1.jpg" style="width: 45px; height: 45px;">
+                        <img class="img-fluid flex-shrink-0 rounded" src="/media/user/1684646450857.jpg"
+                            style="width: 45px; height: 45px;">
                         <div class="ps-3">
-                            <h6 class="fw-bold mb-1">Client Name</h6>
+                            <h6 class="fw-bold mb-1">{{rev.name}}</h6>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="testimonial-item bg-light rounded p-3">
-                <div class="bg-white border rounded p-4">
-                    <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
-                    <div class="d-flex align-items-center">
-                        <img class="img-fluid flex-shrink-0 rounded" src="/static/img/testimonial-2.jpg" style="width: 45px; height: 45px;">
-                        <div class="ps-3">
-                            <h6 class="fw-bold mb-1">Client Name</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-item bg-light rounded p-3">
-                <div class="bg-white border rounded p-4">
-                    <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
-                    <div class="d-flex align-items-center">
-                        <img class="img-fluid flex-shrink-0 rounded" src="/static/img/testimonial-3.jpg" style="width: 45px; height: 45px;">
-                        <div class="ps-3">
-                            <h6 class="fw-bold mb-1">Client Name</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
+
         </div>
     </div>
 </div>
