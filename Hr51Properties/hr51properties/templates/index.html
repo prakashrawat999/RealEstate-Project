@@ -45,13 +45,13 @@
             <div class="row g-4">
                 {% for cat in categories %}
                 <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <a class="cat-item d-block bg-light text-center rounded p-3" href="">
+                    <a class="cat-item d-block bg-light text-center rounded p-3" href="http://127.0.0.1:8000/property/">
                         <div class="rounded p-4">
                             <div class="icon mb-3">
-                                <img class="img-fluid" src="/static/img/icon-house.png" alt="Icon" style="text-decoration: none;">
+                                <img class="img-fluid" src="/media/{{cat.area_image}}" alt="Icon" style="border-radius: 25%; max-height: 100px; width: 200px;">
                             </div>
-                            <h6>{{cat.location}}</h6>
-                            <span>{{cat.name}}</span>
+                            <h6 style="text-decoration: none; ">{{cat.location}}</h6>
+                            <span style="text-decoration: none;">{{cat.name}}</span>
                         </div>
                     </a>
                 </div>

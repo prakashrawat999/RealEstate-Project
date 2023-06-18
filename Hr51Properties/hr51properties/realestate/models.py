@@ -16,6 +16,7 @@ class Realator(models.Model):
     intro = models.CharField(max_length=350,default="RealEstate Agent", null=True)
     url = models.CharField(max_length=100, null=True)
     owner_image = models.ImageField(upload_to='user/', null=True)
+    area_image = models.ImageField(upload_to='user/', null=True)
     add_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def image_tag(self):

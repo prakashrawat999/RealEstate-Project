@@ -19,7 +19,7 @@ Properties
                             </div>
                             <div class="col-md-3">
                                 <select class="form-select" name="search_location" id="roomstatus">
-                                    <option selected>Location</option>
+                                    <option selected>Select Location</option>
                                     {% for each_location,each_hotel_id in all_location %}
                                     <option value={{each_hotel_id}}>{{each_location}}</option>
                                     {% endfor %}
@@ -28,8 +28,26 @@ Properties
 
                             {%load app_tags%}
                             <div class="col-lg-2">
-                                <input class="form-control mr-sm-2" type="number" placeholder="Area" name="capacity"
-                                    id="capacity" aria-label="Search" required="True">
+                                <select class="form-select mr-sm-2" name="capacity" id="capacity" aria-label="Search"
+                                    required="True">
+                                    <option selected>Select Area</option>
+                                    <option value="300">300 sq.ft</option>
+                                    <option value="500">500 sq.ft</option>
+                                    <option value="800">800 sq.ft</option>
+                                    <option value="1000">1000 sq.ft</option>
+                                    <option value="1500">1500 sq.ft</option>
+                                    <option value="2000">2000 sq.ft</option>
+                                    <option value="2500">2500 sq.ft</option>
+                                    <option value="2800">2800 sq.ft</option>
+                                    <option value="3000">3000 sq.ft</option>
+                                    <option value="3500">3500 sq.ft</option>
+                                    <option value="4000">4000 sq.ft</option>
+                                    <option value="4500">4500 sq.ft</option>
+                                    <option value="5000">5000 sq.ft</option>
+                                    <option value="5500">5500 sq.ft</option>
+                                    <option value="6000">6000 sq.ft</option>
+                                    <option value="8000">8000 sq.ft</option>
+                                </select>
                             </div>
                         </div>
                     </div>

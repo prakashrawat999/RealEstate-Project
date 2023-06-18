@@ -81,7 +81,15 @@
                         <a href="/property" class="nav-item nav-link">Property</a>
                         <a href="/contact" class="nav-item nav-link">Contact</a>
                         <a href="/about" class="nav-item nav-link">About</a>
-                        {% if user.is_staff %}
+                        {% if user.is_superuser %}
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown">Manage</a>
+                            <div class="dropdown-menu rounded-0 m-0">
+                                <a href="/admin" class="dropdown-item">Admin DashBoard</a>
+                                <a href="/staff/panel" class="dropdown-item">Staff Dashboard</a>
+                            </div>
+                        </div>
+                        {% elif user.is_staff %}
 
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown">Manage</a>
