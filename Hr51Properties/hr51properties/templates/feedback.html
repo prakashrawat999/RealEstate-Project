@@ -4,14 +4,40 @@ Contact Us
 {% endblock title %}
 {% block css %}
 <link href="/static/css/contact.css" rel="stylesheet">
+<style>
+    
+    #booking {
+        height: 62vh;
+        font-family: 'Montserrat', sans-serif;
+        background-image: url('https://images.unsplash.com/photo-1591474200742-8e512e6f98f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGx1eHVyeSUyMGhvdXNlfGVufDB8fDB8fHww&w=1000&q=80');
+        background-size: cover;
+        background-position: center;
+    }
+
+    #booking::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        background: rgba(6, 149, 115, 0.8);
+    }
+    #textbold{
+        font-family: 'Montserrat', sans-serif;
+        position: relative;
+        color: #fff;
+        font-size: 20px;
+    }
+</style>
 {% endblock css %}
 {% block body %}
 <!--Section: Contact v.2-->
     <div class="form-area">
         <div class="container">
             <div class="row single-form g-0">
-                <div class="col-sm-12 col-lg-6">
-                    <div class="left bg-primary">
+                <div class="col-sm-12 col-lg-6" id="booking">
+                    <div class="left" id="textbold">
                         <h4>
                             <span>
                                 Share your reveiw  with us.

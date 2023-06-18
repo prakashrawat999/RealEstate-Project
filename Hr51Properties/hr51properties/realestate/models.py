@@ -5,13 +5,15 @@ from django.utils.html import format_html
 # Create your models here.
 
     
-class Hotels(models.Model):
+class Realator(models.Model):
     #h_id,h_name,owner ,location,rooms
     name = models.CharField(max_length=30,default="HR51")
     owner = models.CharField(max_length=20, default="Karan Bhadana")
     location = models.CharField(max_length=50, default="Faridabad")
     state = models.CharField(max_length=50,default="Haryana")
     country = models.CharField(max_length=50,default="India")
+    contact = models.CharField(max_length=50,default="987124****", null=True)
+    intro = models.CharField(max_length=350,default="RealEstate Agent", null=True)
     url = models.CharField(max_length=100, null=True)
     owner_image = models.ImageField(upload_to='user/', null=True)
     add_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
@@ -24,7 +26,7 @@ class Hotels(models.Model):
         return self.name + "   |   " + self.owner + "   |   " + self.location
 
 
-class Rooms(models.Model):
+class PropertyView(models.Model):
     ROOM_STATUS = ( 
     ("1", "Available"), 
     ("2", "Not Available"),    
@@ -88,7 +90,7 @@ class Rooms(models.Model):
     propety_code = models.IntegerField(null=True)
     price = models.IntegerField(null=True)
     size = models.IntegerField(null=True)
-    hotel = models.ForeignKey(Hotels, on_delete = models.CASCADE)
+    hotel = models.ForeignKey(Realator, on_delete = models.CASCADE)
     status = models.CharField(choices =ROOM_STATUS,max_length = 15)
     roomnumber = models.IntegerField(null=True)
     yearbuild = models.IntegerField(null=True)
@@ -128,9 +130,9 @@ class Rooms(models.Model):
 
 class Reservation(models.Model):
 
-    check_in = models.DateField(auto_now =False, null=True, blank=True)
+    #check_in = models.DateField(auto_now =False, null=True, blank=True)
     check_out = models.DateField(null=True, blank=True)
-    room = models.ForeignKey(Rooms, on_delete = models.CASCADE)
+    room = models.ForeignKey(PropertyView, on_delete = models.CASCADE)
     guest = models.ForeignKey(User, on_delete= models.CASCADE)
     
     booking_id = models.CharField(max_length=100,default="null")

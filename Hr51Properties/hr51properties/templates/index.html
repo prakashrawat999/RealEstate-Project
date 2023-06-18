@@ -39,54 +39,23 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h1 class="mb-3">Property Types</h1>
-                <p>...</p>
+                <h1 class="mb-3">Property Locations</h1>
+                <p></p>
             </div>
             <div class="row g-4">
+                {% for cat in categories %}
                 <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
                     <a class="cat-item d-block bg-light text-center rounded p-3" href="">
                         <div class="rounded p-4">
                             <div class="icon mb-3">
-                                <img class="img-fluid" src="/static/img/icon-apartment.png" alt="Icon">
+                                <img class="img-fluid" src="/static/img/icon-house.png" alt="Icon" style="text-decoration: none;">
                             </div>
-                            <h6>Apartment</h6>
-                            <span>123 Properties</span>
+                            <h6>{{cat.location}}</h6>
+                            <span>{{cat.name}}</span>
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                        <div class="rounded p-4">
-                            <div class="icon mb-3">
-                                <img class="img-fluid" src="/static/img/icon-house.png" alt="Icon">
-                            </div>
-                            <h6>Home</h6>
-                            <span>123 Properties</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                        <div class="rounded p-4">
-                            <div class="icon mb-3">
-                                <img class="img-fluid" src="/static/img/icon-building.png" alt="Icon">
-                            </div>
-                            <h6>Building</h6>
-                            <span>123 Properties</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                        <div class="rounded p-4">
-                            <div class="icon mb-3">
-                                <img class="img-fluid" src="/static/img/icon-condominium.png" alt="Icon">
-                            </div>
-                            <h6>Shop</h6>
-                            <span>123 Properties</span>
-                        </div>
-                    </a>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -142,6 +111,23 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="team-item rounded overflow-hidden">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="/static/img/team-2.jpg" alt="">
+                        <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
+                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="text-center p-4 mt-3">
+                        <h5 class="fw-bold mb-0">Karan Bhadana</h5>
+                        <small>Estate Agent</small>
+                    </div>
+                </div>
+            </div>
+            {% for cat in categories %}
             <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="team-item rounded overflow-hidden">
                     <div class="position-relative">
@@ -153,43 +139,12 @@
                         </div>
                     </div>
                     <div class="text-center p-4 mt-3">
-                        <h5 class="fw-bold mb-0">Shristi Kasana</h5>
+                        <h5 class="fw-bold mb-0">{{cat.owner}}</h5>
                         <small>Realtor Agent</small>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="team-item rounded overflow-hidden">
-                    <div class="position-relative">
-                        <img class="img-fluid" src="/static/img/team-2.jpg" alt="Loading.">
-                        <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4 mt-3">
-                        <h5 class="fw-bold mb-0">Nikhil Chaprana</h5>
-                        <small>Realtor Agent</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                <div class="team-item rounded overflow-hidden">
-                    <div class="position-relative">
-                        <img class="img-fluid" src="/static/img/team-4.jpg" alt="">
-                        <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4 mt-3">
-                        <h5 class="fw-bold mb-0">Full Name</h5>
-                        <small>Designation</small>
-                    </div>
-                </div>
-            </div>
+            {% endfor%}
         </div>
     </div>
 </div>
@@ -201,7 +156,7 @@
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <h1 class="mb-3">Our Clients Say!</h1>
-            <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
+            <p></p>
         </div>
         <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
             <div class="testimonial-item bg-light rounded p-3">
@@ -211,7 +166,6 @@
                         <img class="img-fluid flex-shrink-0 rounded" src="/static/img/testimonial-1.jpg" style="width: 45px; height: 45px;">
                         <div class="ps-3">
                             <h6 class="fw-bold mb-1">Client Name</h6>
-                            <small>Profession</small>
                         </div>
                     </div>
                 </div>
@@ -223,7 +177,6 @@
                         <img class="img-fluid flex-shrink-0 rounded" src="/static/img/testimonial-2.jpg" style="width: 45px; height: 45px;">
                         <div class="ps-3">
                             <h6 class="fw-bold mb-1">Client Name</h6>
-                            <small>Profession</small>
                         </div>
                     </div>
                 </div>
@@ -235,7 +188,6 @@
                         <img class="img-fluid flex-shrink-0 rounded" src="/static/img/testimonial-3.jpg" style="width: 45px; height: 45px;">
                         <div class="ps-3">
                             <h6 class="fw-bold mb-1">Client Name</h6>
-                            <small>Profession</small>
                         </div>
                     </div>
                 </div>

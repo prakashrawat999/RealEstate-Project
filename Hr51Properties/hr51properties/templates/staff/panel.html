@@ -172,7 +172,7 @@
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-secondary text-white mb-1">
                                 <div class="text-center m-2">
-                                    Total Appointments
+                                    Total Bookings
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <h1 class="card-body text-center">{{reserved}}</h1>
@@ -189,12 +189,13 @@
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
-                                        <th>Room Number</th>
-                                        <th>Type</th>
+                                        <th>Property Code</th>
+                                        <th>BHK</th>
+                                        <th>Properties</th>
+                                        <th>Location</th>
                                         <th>Status</th>
                                         <th>Price</th>
-                                        <th>Capacity</th>
-                                        <th>Size</th>
+                                        <th>Area</th>
                                         <th>Edit</th>
                                         <th>View</th>
 
@@ -206,12 +207,13 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>Room Number</th>
-                                        <th>Type</th>
+                                        <th>Property Code</th>
+                                        <th>BHK</th>
+                                        <th>Properties</th>
+                                        <th>Location</th>
                                         <th>Status</th>
                                         <th>Price</th>
-                                        <th>Capacity</th>
-                                        <th>Size</th>
+                                        <th>Area</th>
                                         <th>Edit</th>
                                         <th>View</th>
                                         <!--
@@ -224,11 +226,12 @@
                                     {% if rooms %} {% for each_room in rooms %}
                                     <tr>
                                         <td>{{each_room.roomnumber}}</td>
-                                        <td>{{each_room.get_room_type_display}}</td>
+                                        <td>{{each_room.get_property_bhk_display}}</td>
+                                        <td>{{each_room.title}}</td>
+                                        <td>{{each_room.address}}</td>
                                         <td>{{each_room.get_status_display}}</td>
                                         <td>{{each_room.price}}</td>
-                                        <td>{{each_room.capacity}}</td>
-                                        <td>{{each_room.size}}</td>
+                                        <td>{{each_room.size}} sq.ft</td>
                                         <td>
                                             <a href="/staff/panel/edit-room?roomid={{each_room.id}}"
                                                 style="text-decoration: none;">Edit</a>

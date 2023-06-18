@@ -50,7 +50,7 @@
                         <div class="sb-sidenav-menu-heading">Core</div>
                         <a class="nav-link" href="/staff/allbookings">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            All Appointments
+                            All Bookings
                         </a>
                         <a class="nav-link" href="/staff/panel">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
@@ -120,7 +120,7 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">All Bookings</h1>
+                    <h1 class="mt-4">All Appointments</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">Dashboard</li>
                     </ol>
@@ -134,11 +134,11 @@
                                 <thead>
                                     <tr>
                                         <th>User</th>
-                                        <th>Room</th>
+                                        <th>Booking Id</th>
+                                        <th>Property Code</th>
+                                        <th>Property Name</th>
                                         <th>Location</th>
-                                        <th>Person</th>
-                                        <th>Check in</th>
-                                        <th>Check out</th>
+                                        <th>Visit Date</th>
                                         <th>Price</th>
                                         <!--
 
@@ -149,11 +149,11 @@
                                 <tfoot>
                                     <tr>
                                         <th>User</th>
-                                        <th>Room</th>
+                                        <th>Booking Id</th>
+                                        <th>Property Code</th>
+                                        <th>Property Name</th>
                                         <th>Location</th>
-                                        <th>Person</th>
-                                        <th>Check in</th>
-                                        <th>Check out</th>
+                                        <th>Visit Date</th>
                                         <th>Price</th>
                                         <!--
 
@@ -165,10 +165,10 @@
                                     {% for each_booking in bookings %}
                                     <tr>
                                         <td>{{each_booking.guest.username}}</td>
+                                        <td>{{each_booking.booking_id}}</td>
                                         <td>{{each_booking.room.roomnumber}}</td>
+                                        <td>{{each_booking.room.title}}</td>
                                         <td>{{each_booking.room.hotel.location}}</td>
-                                        <td>{{each_booking.room.capacity}}</td>
-                                        <td>{{each_booking.check_in}}</td>
                                         <td>{{each_booking.check_out}}</td>
                                         <td>{{each_booking.room.price}}</td>
                                     </tr>
