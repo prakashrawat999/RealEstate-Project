@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 import datetime
+import random
 # Create your views here.
 
 
@@ -116,7 +117,8 @@ def propertypage(request):
             data = {'rooms': room, 'all_location': all_location, 'flag': True}
             response = render(request, 'property.html', data)
         except Exception as e:
-            messages.error(request, e)
+            messages.warning(request, "Please Select All Section | Area | Location ")
+ #           messages.error(request, e)
             response = render(request, 'property.html', {
                               'all_location': all_location})
     else:
@@ -178,6 +180,14 @@ def user_sign_up(request):
         if password1 != password2:
             messages.warning(request, "Password didn't matched")
             return redirect('userloginpage')
+        
+        if len(user_name)<10:
+            messages.error(request, " Your user name must be under 10 characters")
+            return redirect('home')
+        
+        if not user_name.isalnum():
+            messages.error(request, " User name should only contain letters and numbers")
+            return redirect('home')
 
         try:
             if User.objects.all().get(username=user_name):
@@ -235,6 +245,7 @@ def user_log_sign_page(request):
         try:
             if user.is_staff:
                 login(request, user)
+                messages.success(request, "successful logged in")
                 return redirect('staffpanel')
             # if user.is_staff:
 
@@ -281,6 +292,7 @@ def staff_log_sign_page(request):
         if user.is_staff:
             login(request, user)
             return redirect('staffpanel')
+        
 
         else:
             messages.success(request, "Incorrect username or password")
@@ -390,7 +402,7 @@ def add_new_room(request):
         new_room.url = request.POST['url']
 
         new_room.save()
-        messages.success(request, "New Room Added Successfully")
+        messages.success(request, "New Property Added Successfully")
 
     return redirect('staffpanel')
 
@@ -429,6 +441,10 @@ def book_room(request):
         booking_id = str(room_id) + str(datetime.datetime.now())
 
         reservation = Reservation()
+        # generate random number
+        book_id_generate = random.random()
+
+        reservation.booking_id = book_id_generate
         room_object = PropertyView.objects.all().get(id=room_id)
         room_object.status = '2'
 

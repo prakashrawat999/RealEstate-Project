@@ -87,6 +87,8 @@
                             <div class="dropdown-menu rounded-0 m-0">
                                 <a href="/admin" class="dropdown-item">Admin DashBoard</a>
                                 <a href="/staff/panel" class="dropdown-item">Staff Dashboard</a>
+                                <a href="/staff/allbookings" class="dropdown-item">All Bookings</a>
+                                <a href="/user/bookings" class="dropdown-item">My Bookings</a>
                             </div>
                         </div>
                         {% elif user.is_staff %}
@@ -99,8 +101,7 @@
                             </div>
                         </div>
                         {% elif user.is_staff == False and user.is_authenticated %}
-                        <a href="/user/bookings" class="nav-item nav-link active">My Bookings
-                        </a>
+                        <a href="/user/bookings" class="nav-item nav-link active">My Bookings</a>
 
                         {% endif %}
                     </div>

@@ -36,7 +36,7 @@ class FeedbackAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
 class ReservAdmin(admin.ModelAdmin):
-    list_display = ('booking_id', 'check_out', 'room', 'guest',)
+    list_display = ('booking_id', 'check_out', 'room','guest',)
     list_filter = ('booking_id', 'check_out',)
     search_fields = ('booking_id',)
 
