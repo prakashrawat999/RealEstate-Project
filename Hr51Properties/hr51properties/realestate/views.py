@@ -80,10 +80,12 @@ def homepage(request):
             response = render(request, 'index.html', {
                               'all_location': all_location})
     else:
+        room = PropertyView.objects.all()
         data = {
             'all_location': all_location,
             'posts': posts,
-            'categories': categories
+            'categories': categories,
+            'own': room
             }
         response = render(request, 'index.html', data)
     return HttpResponse(response)
