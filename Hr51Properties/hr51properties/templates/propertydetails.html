@@ -26,24 +26,19 @@
                     <hr>
                     <div class="panel-body">
                         <div class="text-center" id="author">
-                            <img src="/media/{{room.hotel.owner_image}}" style="max-height: 200px;">
+                            <img src="/media/{{room.hotel.owner_image}}"
+                                style="height: 250px; width: 250px; object-fit: fill;">
                             <h5>{{room.hotel.owner}}</h5>
                             <small>{{room.hotel.intro}}</small><br>
                             <small>{{room.hotel.location}}, {{room.hotel.contact}}</small>
                             <p class="sosmed-author mb-3">
-                                <a href="#detail" data-toggle="tab"><i class="fa fa-book" title="Google Plus"></i></a>
-                                <a href="#photo" data-toggle="tab"><i class="fa fa-arrow-right" title="Google Plus"></i></a>
+                                <a href="#detail" data-toggle="tab"><i class="fa fa-info-circle" title="Google Plus"></i></a>
+                                <a href="/user/book-room?roomid={{room.id}}" data-toggle="tab"><i class="fa fa-book" title="Google Plus"></i></a>
+                                <a href="#photo" data-toggle="tab"><i class="fa fa-arrow-right"
+                                    title="Google Plus"></i></a>
                             </p>
                         </div>
                     </div>
-                </div>
-                <div class="d-flex justify-content-end pt-2 px-2">
-                    <ul id="myTab" class="nav nav-pills">
-                        <li class=""><a style="height: 35px;" class="mr-2" href="#detail" data-toggle="tab">Details</a>
-                        </li>
-                        <li class="active"><a style="height: 35px;" class="mr-1" href="#photo" data-toggle="tab"><i
-                                    class="fa fa-image" title="Facebook"></i></a></li>
-                    </ul>
                 </div>
             </div>
             <div class="col-lg-9 col-md-8 col-xs-12">
@@ -186,7 +181,7 @@
                                         </tr>
                                         <tr>
                                             <td class="table-light">Other Details:</td>
-                                            <td><a href="/contact" >Contact for More Details</a></td>
+                                            <td><a href="/contact">Contact for More Details</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
